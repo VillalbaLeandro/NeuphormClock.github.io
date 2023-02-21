@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://kit.fontawesome.com/fc1047b7d0.js" crossorigin="anonymous"></script>
+
+  <title>JS + CSS Clock</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+
+<body>
+  <div class="button-container">
+    <button class="btnSwitch" id="btnSwitch">
+      <span><i class="fas fa-moon"></i></span>
+      <span><i class="fas fa-sun"></i></span>
+    </button>
+
+  </div>
+
+  <div class="clock">
+
+    <div class="clock-face">
+      <div class="hand hour-hand" id="hr"></div>
+      <div class="hand min-hand" id="mn"></div>
+      <div class="hand second-hand" id="sc"></div>
+    </div>
+    <img src="./clock.png" class="element-center" alt="horas">
+
+
+
+  </div>
+
+
+  <style>
+    :root {
+      --color-fondo: #e0e0e0;
+      --color-sombra-claro: #cdcdcd;
+      --color-sombra-oscura: #ffffff5e;
+
+      /* dark mode  */
+
+      --Darkcolor-fondo: #0b0d13;
+    --Darkcolor-sombra-claro: #020202;
+    --Darkcolor-sombra-oscura: #2c2c2c5e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+    
+    body {
+      background: var(--color-fondo);
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      transition: all 0.5s;
+
+    }
+    body.dark{
+      background: var(--Darkcolor-fondo)
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      width: 68%;
+      margin-top: 20px;
+
+    }
+
+    .clock {
+      width: 50vw;
+      max-width: 600px;
+      height: 50vw;
+      max-height: 600px;
+      border: 5px solid var(--color-fondo);
+      border-radius: 50%;
+      margin: auto;
+      position: relative;
+      padding: 2rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 6px 6px 10px var(--color-sombra-claro), inset -6px -6px 10px var(--color-sombra-oscura), 4px 4px 10px var(--color-sombra-claro);
+      transition: all 0.5s;
+
+    }
+
+    body.dark .clock{
+      border: 5px solid var(--Darkcolor-fondo);
+      box-shadow: inset 6px 6px 10px var(--Darkcolor-sombra-claro), inset -6px -6px 11px #18181bf5, 4px 4px 10px var(--Darkcolor-sombra-claro);
+
+    }
+
+    .clock-face {
+      position: relative;
+      width: 60%;
+      height: 75vw;
+      transform: translateY(-3px);
+      display: flex;
+      align-items: center;
+      /* account for the height of the clock hands */
+      left: -2%;
+    }
+
+    .hand {
+
+      position: absolute;
+      top: 50%;
+      border-radius: 2px;
+      transform: rotate(90deg);
+      transition: all 0.5s;
+      transition-timing-function: cubic-bezier(0.01, 1.17, 0.2, 0.86)
+      
+    }
+
+    body.dark .hand{
+      box-shadow: 2px 2px 4px 0px #6a676700, inset 0px 4px 3px 0px #252323;
+
+    }
+
+
+    body.dark .second-hand {
+      background: var(--Darkcolor-sombra-claro);
+      width: 35%;
+      height: 2px;
+      transform-origin: 150%;
+
+    }
+
+    body.dark .min-hand {
+      background: var(--Darkcolor-sombra-claro);
+
+      width: 35%;
+      height: 4px;
+      transform-origin: 150%;
+
+
+    }
+    
+    body.dark .hour-hand {
+      background: var(--Darkcolor-sombra-claro);
+
+      width: 35%;
+      height: 6px;
+      transform-origin: 150%;
+
+    }
+    .second-hand {
+      width: 35%;
+      height: 2px;
+      transform-origin: 150%;
+      background: var(--color-sombra-claro);
+    }
+
+    .min-hand {
+      width: 35%;
+      height: 4px;
+      transform-origin: 150%;
+      background: var(--color-sombra-claro);
+
+
+    }
+
+    .hour-hand {
+      width: 35%;
+      height: 6px;
+      transform-origin: 150%;
+      background: var(--color-sombra-claro);
+
+    }
+
+    .element-center {
+      padding: 19px;
+      opacity: 0.3;
+      position: absolute;
+      width: 100%;
+    }
+
+    .btnSwitch {
+      background: var(--Darkcolor-sombra-claro);
+      border-radius: 1000px;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      outline: none;
+    }
+
+    .btnSwitch::after {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      background-color: #f1f1f1;
+      top: 0;
+      left: unset;
+      right: 0;
+      border-radius: 100px;
+      transition: .3s all;
+      box-shadow: 0px 0px 2px rgba(0, 0, 0, 2);
+    }
+
+    .btnSwitch.active {
+      
+      /* dark-mode active  */
+      background-color: var(--color-sombra-claro);
+      color: #000;
+    }
+
+    .btnSwitch.active::after {
+      right: unset;
+      left: 0;
+    }
+
+    .btnSwitch span {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      display: block;
+      background: none;
+      color: #fff;
+    }
+  </style>
+
+
+  <script>
+
+    const body = document.querySelector("body")
+    const btnSwitch = document.querySelector(".btnSwitch")
+    const secondHand = document.querySelector('.second-hand');
+    const minsHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    
+
+    btnSwitch.addEventListener('click', () => {
+      document.body.classList.toggle("dark");
+      btnSwitch.classList.toggle("active")
+    })
+
+    function setDate() {
+      const now = new Date();
+
+      const seconds = now.getSeconds();
+      const secondsDegrees = ((seconds / 60) * 360) + 90;
+      if (secondsDegrees === 90) {
+        secondHand.style.transition = 'none';
+      } else {
+        secondHand.style.transition = '';
+      }
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+      const mins = now.getMinutes();
+      const minsDegrees = ((mins / 60) * 360) + ((seconds / 60) * 6) + 90;
+      if (minsDegrees === 90) {
+        minsHand.style.transition = 'none';
+      } else {
+        minsHand.style.transition = '';
+      }
+      minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+
+      const hour = now.getHours();
+      const hourDegrees = ((hour / 12) * 360) + ((mins / 60) * 30) + 90;
+      if (hourDegrees === 90) {
+        hourHand.style.transition = 'none';
+      } else {
+        hourHand.style.transition = '';
+      }
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    }
+
+    setInterval(setDate, 1000);
+
+    setDate();
+
+
+  </script>
+</body>
+
+</html>
