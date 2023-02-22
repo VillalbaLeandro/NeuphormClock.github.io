@@ -1,0 +1,186 @@
+:root {
+    --color-fondo: #e0e0e0;
+    --color-sombra-claro: #cdcdcd;
+    --color-sombra-oscura: #ffffff5e;
+    --Darkcolor-fondo: #0b0d13;
+    --Darkcolor-sombra-claro: #020202;
+    --Darkcolor-sombra-oscura: #2c2c2c5e;
+    --Darkcolor-hands: #7c7c7c5e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: linear-gradient(to right bottom, #e0e0e0, #dedfde, #dddddd, #dbdcdb, #dadada, #d1d1d1, #c8c8c8, #bfbfbf, #acacac, #9a9a9a, #888888, #777777);
+    background: var(--color-fondo);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+body.dark {
+    background: rgb(8,10,15);
+    background: radial-gradient(circle, rgba(8,10,15,1) 0%, rgba(0,0,0,1) 79%);
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 68%;
+    margin-top: 20px;
+}
+
+.clock {
+    width: 90%;
+    border-radius: 50%;
+    margin: 3% 0 0 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+    box-shadow:
+        inset 6px 6px 10px var(--color-sombra-claro),
+        inset -6px -6px 10px var(--color-sombra-oscura),
+        4px 4px 10px var(--color-sombra-claro);
+}
+
+body.dark .clock {
+    border: 5px solid #06070a;
+    box-shadow:
+        inset 6px 6px 10px var(--Darkcolor-sombra-claro),
+        inset -6px -6px 11px #18181bf5,
+        4px 4px 10px var(--Darkcolor-sombra-claro);
+}
+
+.clock-face {
+    display: flex;
+}
+
+.clock-face .hand {
+    position: absolute;
+    display: flex;
+    left: 14%;
+}
+
+img {
+    width: 100%;
+    opacity: 0.2;
+    padding: 18px;
+}
+
+i.fa-sun {
+    color: var(--Darkcolor-fondo);
+}
+
+.hand {
+    position: absolute;
+    top: 50%;
+    border-radius: 10px;
+    transform: rotate(90deg);
+    transition: all 0.5s;
+    transition-timing-function: cubic-bezier(0.01, 1.17, 0.2, 0.86)
+}
+
+.second-hand,
+.min-hand,
+.hour-hand {
+    width: 25%;
+    transform-origin: 150%;
+    background: var(--color-sombra-claro);
+}
+
+.min-hand {
+    height: 4px;
+}
+
+.hour-hand {
+    height: 7px;
+}
+
+.second-hand {
+    height: 2px;
+}
+
+body.dark .second-hand,
+body.dark .min-hand,
+body.dark .hour-hand {
+    background: var(--Darkcolor-hands);
+}
+
+body.dark .min-hand {
+    width: 25%;
+}
+
+.element-center {
+    padding: 19px;
+    opacity: 0.3;
+    position: absolute;
+    width: 100%;
+}
+
+.btnSwitch {
+    background: var(--Darkcolor-sombra-claro);
+    border-radius: 1000px;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    outline: none;
+}
+
+.btnSwitch::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: #f1f1f1;
+    top: 0;
+    right: 0;
+    border-radius: 100px;
+    transition: 0.3s all;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.btnSwitch.active {
+    /* dark-mode active  */
+    background-color: var(--color-sombra-claro);
+    color: #000;
+}
+
+.btnSwitch.active::after {
+    right: unset;
+    left: 0;
+}
+
+.btnSwitch span {
+    width: 35px;
+    line-height: 30px;
+    display: block;
+    background: none;
+    color: #fff;
+}
+
+@media screen and (min-width: 1000px) {
+    .clock {
+        max-width: 400px;
+    }
+    .min-hand {
+        height: 3px;
+    }
+    
+    .hour-hand {
+        height: 5px;
+    }
+    
+    .second-hand {
+        height: 2px;
+    }
+}
